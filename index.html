@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kartify – Shop the best deals on Electronics, Fashion, Computing, Audio & more. Free shipping on orders over $100." />
+  <title>Kartify – Shop Everything You Love</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- =============================================
+     HEADER
+     ============================================= -->
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+
+    <!-- Brand -->
+    <a href="#" class="brand-logo" aria-label="Kartify Home">
+      <div class="logo-icon" aria-hidden="true">🛒</div>
+      <div>
+        <span class="brand-name">Kartify</span>
+        <span class="brand-tagline">Shop Everything</span>
+      </div>
+    </a>
+
+    <!-- Desktop Search -->
+    <div class="search-wrap" role="search">
+      <div class="search-input-inner">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="search" id="searchInput" placeholder="Search products, brands and more…" autocomplete="off" aria-label="Search products" />
+        <button id="searchClearBtn" class="search-clear-btn" title="Clear search" aria-label="Clear search" style="display:none;">✕</button>
+      </div>
+      <div id="searchResultsDrop" class="search-results-drop" role="listbox" aria-label="Search suggestions"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle theme"></button>
+
+      <!-- Wishlist -->
+      <button id="wishlistBtn" class="icon-btn" title="Wishlist" aria-label="Open wishlist">
+        ❤️
+        <span id="wishlistCount" class="badge-count" aria-label="Wishlist items" style="display:none;">0</span>
+      </button>
+
+      <!-- Cart -->
+      <button id="cartBtn" class="icon-btn" title="Shopping Cart" aria-label="Open cart">
+        🛒
+        <span id="cartCount" class="badge-count" aria-label="Cart items" style="display:none;">0</span>
+      </button>
+
+      <!-- Mobile Menu -->
+      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile Search Row (hidden by default, toggled by hamburger) -->
+<div id="mobileSearchRow" class="mobile-search-row" style="display:none;">
+  <div class="search-wrap" role="search">
+    <div class="search-input-inner">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search products…" autocomplete="off" aria-label="Search products mobile"
+             oninput="if(document.getElementById('searchInput')) { document.getElementById('searchInput').value = this.value; document.getElementById('searchInput').dispatchEvent(new Event('input')); }" />
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     CATEGORY NAV BAR
+     ============================================= -->
+<nav class="category-nav" aria-label="Product categories">
+  <div class="category-nav-inner">
+    <button class="cat-nav-btn active" data-cat="all" aria-label="All categories">
+      <span class="cat-emoji">🏪</span> All Products
+    </button>
+    <button class="cat-nav-btn" data-cat="mobiles" aria-label="Smartphones & Tablets">
+      <span class="cat-emoji">📱</span> Phones & Tablets
+    </button>
+    <button class="cat-nav-btn" data-cat="computing" aria-label="Computing & Gaming">
+      <span class="cat-emoji">💻</span> Computing
+    </button>
+    <button class="cat-nav-btn" data-cat="audio" aria-label="Audio & Wearables">
+      <span class="cat-emoji">🎧</span> Audio & Wearables
+    </button>
+    <button class="cat-nav-btn" data-cat="fashion" aria-label="Fashion & Apparel">
+      <span class="cat-emoji">👗</span> Fashion
+    </button>
+    <button class="cat-nav-btn" data-cat="home" aria-label="Home & Living">
+      <span class="cat-emoji">🏠</span> Home & Living
+    </button>
+  </div>
+</nav>
+
+<!-- =============================================
+     MAIN OVERLAY (for drawers)
+     ============================================= -->
+<div id="mainOverlay" class="overlay" role="presentation" aria-hidden="true"></div>
+
+<!-- =============================================
+     HERO SECTION
+     ============================================= -->
+<main id="main-content">
+<section class="hero-section" aria-label="Featured promotions">
+  <div class="container">
+    <div class="hero-banner" role="region" aria-label="Promotional banner slideshow">
+      <!-- Slides Track -->
+      <div id="heroSlidesTrack" class="hero-slides-track">
+
+        <!-- Slide 1 -->
+        <div class="hero-slide hero-slide-1" aria-label="Slide 1: Tech Deals">
+          <div class="hero-content">
+            <div class="hero-badge">🔥 Flash Sale — Limited Time</div>
+            <h1 class="hero-title">Next-Gen Tech<br>at Unreal Prices</h1>
+            <p class="hero-subtitle">Save up to 40% on premium laptops, gaming gear, and flagship smartphones.</p>
+            <button class="hero-cta" onclick="setCategory('computing')">
+              Shop Tech Deals <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide hero-slide-2" aria-label="Slide 2: Audio sale">
+          <div class="hero-content">
+            <div class="hero-badge">🎧 Audiophile Week</div>
+            <h1 class="hero-title">Hear the<br>Difference</h1>
+            <p class="hero-subtitle">ANC headphones, smart watches & more — your perfect audio companion awaits.</p>
+            <button class="hero-cta" onclick="setCategory('audio')">
+              Explore Audio <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide hero-slide-3" aria-label="Slide 3: Fashion offers">
+          <div class="hero-content">
+            <div class="hero-badge">👗 Style Season</div>
+            <h1 class="hero-title">Dress to<br>Impress</h1>
+            <p class="hero-subtitle">Trending fashion, accessories and bags at prices that make you look twice.</p>
+            <button class="hero-cta" onclick="setCategory('fashion')">
+              Browse Fashion <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /hero-slides-track -->
+
+      <!-- Hero Arrows -->
+      <button id="heroPrev" class="hero-arr hero-arr-prev" aria-label="Previous slide">‹</button>
+      <button id="heroNext" class="hero-arr hero-arr-next" aria-label="Next slide">›</button>
+
+      <!-- Hero Dots -->
+      <div class="hero-nav" role="tablist" aria-label="Slide navigation">
+        <button class="hero-dot active" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+      </div>
+    </div><!-- /hero-banner -->
+
+    <!-- Trust / Value Props Bar -->
+    <div class="trust-bar" role="list" aria-label="Our promises">
+      <div class="trust-item" role="listitem">
+        <span class="trust-icon" aria-hidden="true">🚚</span>
+        <div>
+          <div class="trust-label">Free Shipping</div>
+          <div class="trust-sub">On orders over $100</div>
+        </div>
+      </div>
+      <div class="trust-item" role="listitem">
+        <span class="trust-icon" aria-hidden="true">🔒</span>
+        <div>
+          <div class="trust-label">Secure Payment</div>
+          <div class="trust-sub">256-bit SSL encrypted</div>
+        </div>
+      </div>
+      <div class="trust-item" role="listitem">
+        <span class="trust-icon" aria-hidden="true">↩️</span>
+        <div>
+          <div class="trust-label">Easy Returns</div>
+          <div class="trust-sub">30-day hassle-free returns</div>
+        </div>
+      </div>
+      <div class="trust-item" role="listitem">
+        <span class="trust-icon" aria-hidden="true">💬</span>
+        <div>
+          <div class="trust-label">24/7 Support</div>
+          <div class="trust-sub">Chat, email & phone</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SHOP SECTION
+     ============================================= -->
+<section class="shop-section" aria-label="Product catalog">
+  <div class="container">
+    <div class="shop-layout">
+
+      <!-- ---- SIDEBAR FILTERS ---- -->
+      <aside class="filter-sidebar" aria-label="Product filters">
+        <div class="filter-header">
+          <h2 class="filter-title">🎛️ Filters</h2>
+          <button id="filterResetBtn" class="filter-reset-btn" aria-label="Reset all filters">Reset All</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-section">
+          <div class="filter-section-label">Category</div>
+          <button class="filter-cat-btn active" data-cat="all" aria-label="All categories">
+            🏪 All Products <span class="cat-count">12</span>
+          </button>
+          <button class="filter-cat-btn" data-cat="mobiles" aria-label="Phones and Tablets">
+            📱 Phones & Tablets <span class="cat-count">1</span>
+          </button>
+          <button class="filter-cat-btn" data-cat="computing" aria-label="Computing and Gaming">
+            💻 Computing & Gaming <span class="cat-count">3</span>
+          </button>
+          <button class="filter-cat-btn" data-cat="audio" aria-label="Audio and Wearables">
+            🎧 Audio & Wearables <span class="cat-count">2</span>
+          </button>
+          <button class="filter-cat-btn" data-cat="fashion" aria-label="Fashion and Apparel">
+            👗 Fashion & Apparel <span class="cat-count">3</span>
+          </button>
+          <button class="filter-cat-btn" data-cat="home" aria-label="Home and Living">
+            🏠 Home & Living <span class="cat-count">3</span>
+          </button>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-section">
+          <div class="filter-section-label">Price Range</div>
+          <div class="price-range-wrap">
+            <div class="price-labels">
+              <span>$0</span>
+              <span id="priceMaxLabel">$1500</span>
+            </div>
+            <input type="range" id="priceRange" min="10" max="1500" value="1500" step="10" aria-label="Maximum price" />
+          </div>
+        </div>
+
+        <!-- Rating Filter -->
+        <div class="filter-section">
+          <div class="filter-section-label">Customer Rating</div>
+          <label class="rating-option">
+            <input type="radio" name="rating" value="4.5" /> <span class="stars">★★★★★</span> 4.5 & above
+          </label>
+          <label class="rating-option">
+            <input type="radio" name="rating" value="4" /> <span class="stars">★★★★☆</span> 4 & above
+          </label>
+          <label class="rating-option">
+            <input type="radio" name="rating" value="3" /> <span class="stars">★★★☆☆</span> 3 & above
+          </label>
+          <label class="rating-option">
+            <input type="radio" name="rating" value="0" /> <span>⭐ All Ratings</span>
+          </label>
+        </div>
+      </aside><!-- /filter-sidebar -->
+
+      <!-- ---- PRODUCTS AREA ---- -->
+      <div class="products-area">
+        <div class="products-topbar">
+          <p id="resultsCount" class="results-count" aria-live="polite">Showing <strong>12</strong> of <strong>12</strong> products</p>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <button id="mobileFilterBtn" class="mobile-filter-btn" aria-label="Open filters">
+              🎛️ Filters
+            </button>
+            <select id="sortSelect" class="sort-select" aria-label="Sort products">
+              <option value="featured">✨ Featured</option>
+              <option value="price_asc">💲 Price: Low to High</option>
+              <option value="price_desc">💰 Price: High to Low</option>
+              <option value="rating">⭐ Highest Rated</option>
+              <option value="newest">🆕 Newest First</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productsGrid" class="products-grid" role="list" aria-label="Products"></div>
+      </div>
+
+    </div><!-- /shop-layout -->
+  </div>
+</section>
+
+</main>
+
+<!-- =============================================
+     CART DRAWER
+     ============================================= -->
+<aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart" role="dialog" aria-modal="true">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">🛒 Your Cart</div>
+    <button id="cartCloseBtn" class="cart-close-btn" aria-label="Close cart">✕</button>
+  </div>
+
+  <!-- Cart Items -->
+  <div id="cartItemsList" class="cart-items-list" role="list" aria-label="Cart items"></div>
+
+  <!-- Cart Empty State -->
+  <div id="cartEmpty" class="cart-empty-state" aria-live="polite">
+    <div class="empty-bag" aria-hidden="true">🛍️</div>
+    <h3>Your cart is empty</h3>
+    <p>Looks like you haven't added anything yet.</p>
+  </div>
+
+  <!-- Coupon & Summary (shown when cart has items) -->
+  <div id="cartSummaryBlock" style="display:none;">
+    <!-- Coupon -->
+    <div class="coupon-section" style="margin-bottom:12px;">
+      <div class="coupon-input-wrap">
+        <input id="couponInput" type="text" placeholder="Enter promo code (e.g. KART20)" aria-label="Promo code input" autocomplete="off" />
+        <button id="applyCouponBtn" class="apply-coupon-btn" aria-label="Apply coupon">Apply</button>
+      </div>
+      <p id="couponMsg" class="coupon-msg" aria-live="polite"></p>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="cart-summary" aria-label="Order summary">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="summarySubtotal">$0.00</span>
+      </div>
+      <div id="summaryDiscountRow" class="summary-row discount" style="display:none;">
+        <span>Coupon Discount</span>
+        <span id="summaryDiscount">-$0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span id="summaryShipping">$9.99</span>
+      </div>
+      <div class="summary-row">
+        <span>Tax (8%)</span>
+        <span id="summaryTax">$0.00</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total Payable</span>
+        <span id="summaryTotal">$0.00</span>
+      </div>
+      <button id="checkoutBtn" class="checkout-btn" aria-label="Proceed to checkout">
+        🔒 Checkout Securely
+      </button>
+      <p style="text-align:center;font-size:0.72rem;color:var(--text-muted);margin-top:8px;">
+        💳 We accept Visa, Mastercard, UPI, PayPal & more
+      </p>
+    </div>
+  </div>
+</aside>
+
+<!-- =============================================
+     WISHLIST DRAWER
+     ============================================= -->
+<aside id="wishlistDrawer" class="wishlist-drawer" aria-label="Wishlist" role="dialog" aria-modal="true">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">❤️ Wishlist</div>
+    <button id="wishlistCloseBtn" class="cart-close-btn" aria-label="Close wishlist">✕</button>
+  </div>
+
+  <div id="wishlistItemsList" class="wishlist-items-list" role="list" aria-label="Wishlist items"></div>
+
+  <div id="wishlistEmpty" class="cart-empty-state" aria-live="polite">
+    <div class="empty-bag" aria-hidden="true">💝</div>
+    <h3>Wishlist is empty</h3>
+    <p>Tap the ❤️ on any product to save it here.</p>
+  </div>
+</aside>
+
+<!-- =============================================
+     FILTER DRAWER (MOBILE)
+     ============================================= -->
+<div id="filterDrawer" class="filter-drawer" role="dialog" aria-modal="true" aria-label="Product filters">
+  <div class="filter-header">
+    <h2 class="filter-title">🎛️ Filters</h2>
+    <button id="filterDrawerClose" class="cart-close-btn" aria-label="Close filters">✕</button>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="filter-section">
+    <div class="filter-section-label">Category</div>
+    <button class="filter-cat-btn active" data-cat="all">🏪 All Products</button>
+    <button class="filter-cat-btn" data-cat="mobiles">📱 Phones & Tablets</button>
+    <button class="filter-cat-btn" data-cat="computing">💻 Computing & Gaming</button>
+    <button class="filter-cat-btn" data-cat="audio">🎧 Audio & Wearables</button>
+    <button class="filter-cat-btn" data-cat="fashion">👗 Fashion & Apparel</button>
+    <button class="filter-cat-btn" data-cat="home">🏠 Home & Living</button>
+  </div>
+
+  <!-- Price -->
+  <div class="filter-section">
+    <div class="filter-section-label">Max Price</div>
+    <div class="price-range-wrap">
+      <div class="price-labels"><span>$0</span><span>$1500</span></div>
+      <input type="range" min="10" max="1500" value="1500" step="10" aria-label="Max price filter"
+             oninput="if(document.getElementById('priceRange')){document.getElementById('priceRange').value=this.value;document.getElementById('priceRange').dispatchEvent(new Event('input'))}" />
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <button id="filterResetBtn2" class="filter-reset-btn" style="width:100%;padding:12px;background:var(--bg-surface-2);border:1.5px solid var(--border-color);border-radius:var(--radius-md);font-weight:600;cursor:pointer;color:var(--text-secondary);"
+            onclick="resetFilters()">Reset Filters</button>
+  </div>
+</div>
+
+<!-- =============================================
+     QUICK VIEW MODAL
+     ============================================= -->
+<div id="quickViewOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Product quick view">
+  <div id="quickViewModal" class="quick-view-modal">
+    <div class="modal-inner">
+      <!-- Image -->
+      <div class="modal-img-col">
+        <button id="modalCloseBtn" class="modal-close" aria-label="Close quick view">✕</button>
+        <img id="modalImg" src="" alt="Product image" />
+      </div>
+      <!-- Info -->
+      <div class="modal-info-col">
+        <div id="modalBadge" class="modal-badge"></div>
+        <h2 id="modalProductName" class="modal-product-name">Product Name</h2>
+        <div id="modalRating" class="modal-rating"></div>
+        <div class="modal-price">
+          <span id="modalPrice" class="price-current"></span>
+          <span id="modalOrigPrice" class="price-original"></span>
+          <span id="modalSaveTag" class="save-tag"></span>
+        </div>
+        <p id="modalDesc" class="modal-description"></p>
+        <div id="modalSpecs" class="modal-specs"></div>
+        <!-- Quantity -->
+        <div class="modal-qty-ctrl">
+          <span class="modal-qty-label">Qty:</span>
+          <div class="qty-ctrl-group">
+            <button id="modalQtyDec" class="qty-btn" aria-label="Decrease quantity">−</button>
+            <span id="modalQtyVal" class="qty-val">1</span>
+            <button id="modalQtyInc" class="qty-btn" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div class="modal-actions">
+          <button id="modalAtcBtn" class="modal-atc-btn">🛒 Add to Cart</button>
+          <button id="modalWishBtn" class="modal-wishlist-btn" title="Add to Wishlist" aria-label="Toggle wishlist">🤍</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     CHECKOUT MODAL
+     ============================================= -->
+<div id="checkoutOverlay" class="checkout-modal-overlay" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div id="checkoutModal" class="checkout-modal">
+
+    <!-- Header -->
+    <div class="checkout-header">
+      <div class="checkout-title">🔒 Secure Checkout</div>
+      <button id="checkoutCloseBtn" class="cart-close-btn" aria-label="Close checkout">✕</button>
+    </div>
+
+    <!-- Steps Indicator -->
+    <div class="steps-indicator" role="tablist" aria-label="Checkout steps">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="step-dot active" role="tab" aria-selected="true">1</div>
+        <div class="step-label">Address</div>
+      </div>
+      <div class="step-line"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="step-dot" role="tab" aria-selected="false">2</div>
+        <div class="step-label">Payment</div>
+      </div>
+      <div class="step-line"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="step-dot" role="tab" aria-selected="false">3</div>
+        <div class="step-label">Confirm</div>
+      </div>
+    </div>
+
+    <!-- Step 1: Shipping Address -->
+    <div class="checkout-step active" id="checkoutStep1" aria-label="Shipping address step">
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label for="shippingName" class="form-label">Full Name *</label>
+          <input id="shippingName" type="text" class="form-input" placeholder="John Doe" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="shippingEmail" class="form-label">Email Address *</label>
+          <input id="shippingEmail" type="email" class="form-input" placeholder="john@example.com" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="shippingPhone" class="form-label">Phone Number</label>
+        <input id="shippingPhone" type="tel" class="form-input" placeholder="+1 (555) 000-0000" autocomplete="tel" />
+      </div>
+      <div class="form-group">
+        <label for="shippingAddr" class="form-label">Street Address *</label>
+        <input id="shippingAddr" type="text" class="form-input" placeholder="123 Main St, Apt 4B" required autocomplete="street-address" />
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label for="shippingCity" class="form-label">City *</label>
+          <input id="shippingCity" type="text" class="form-input" placeholder="New York" required autocomplete="address-level2" />
+        </div>
+        <div class="form-group">
+          <label for="shippingZip" class="form-label">ZIP / Postal Code *</label>
+          <input id="shippingZip" type="text" class="form-input" placeholder="10001" required autocomplete="postal-code" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="shippingCountry" class="form-label">Country</label>
+        <select id="shippingCountry" class="form-input" autocomplete="country">
+          <option value="us">🇺🇸 United States</option>
+          <option value="in">🇮🇳 India</option>
+          <option value="uk">🇬🇧 United Kingdom</option>
+          <option value="ca">🇨🇦 Canada</option>
+          <option value="au">🇦🇺 Australia</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Step 2: Payment -->
+    <div class="checkout-step" id="checkoutStep2" aria-label="Payment method step">
+      <div class="payment-options" role="radiogroup" aria-label="Select payment method">
+
+        <label class="payment-opt selected">
+          <input type="radio" name="payment" value="card" checked />
+          <span class="payment-opt-icon">💳</span>
+          <div>
+            <div class="payment-opt-label">Credit / Debit Card</div>
+            <div class="payment-opt-sub">Visa, Mastercard, Amex, Rupay</div>
+          </div>
+        </label>
+
+        <label class="payment-opt">
+          <input type="radio" name="payment" value="upi" />
+          <span class="payment-opt-icon">📱</span>
+          <div>
+            <div class="payment-opt-label">UPI / QR Code</div>
+            <div class="payment-opt-sub">GPay, PhonePe, PayTM, BHIM</div>
+          </div>
+        </label>
+
+        <label class="payment-opt">
+          <input type="radio" name="payment" value="netbanking" />
+          <span class="payment-opt-icon">🏦</span>
+          <div>
+            <div class="payment-opt-label">Net Banking</div>
+            <div class="payment-opt-sub">All major banks supported</div>
+          </div>
+        </label>
+
+        <label class="payment-opt">
+          <input type="radio" name="payment" value="paypal" />
+          <span class="payment-opt-icon">🅿️</span>
+          <div>
+            <div class="payment-opt-label">PayPal</div>
+            <div class="payment-opt-sub">Fast &amp; secure global checkout</div>
+          </div>
+        </label>
+
+        <label class="payment-opt">
+          <input type="radio" name="payment" value="cod" />
+          <span class="payment-opt-icon">💵</span>
+          <div>
+            <div class="payment-opt-label">Cash on Delivery</div>
+            <div class="payment-opt-sub">Pay when you receive your order</div>
+          </div>
+        </label>
+
+      </div>
+    </div>
+
+    <!-- Step 3: Order Confirmation -->
+    <div class="checkout-step" id="checkoutStep3" aria-label="Order confirmation">
+      <div class="order-confirm">
+        <div class="confirm-icon" aria-hidden="true">🎉</div>
+        <h2 class="confirm-title">Order Placed!</h2>
+        <p class="confirm-sub">Thank you for shopping with Kartify. Your order is confirmed and being processed.</p>
+        <div class="order-id-tag">
+          <span>Your Order ID</span>
+          <strong id="orderIdEl">KART-XXXXXX</strong>
+        </div>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:24px;">
+          📦 Estimated delivery: <strong style="color:var(--text-primary);">3–5 business days</strong><br>
+          📧 A confirmation email has been sent to your inbox.
+        </p>
+        <button id="continueShopBtn" class="continue-shop-btn" aria-label="Continue shopping">
+          🛒 Continue Shopping
+        </button>
+      </div>
+    </div>
+
+    <!-- Checkout Footer -->
+    <div class="checkout-footer">
+      <button id="checkoutBackBtn" class="btn-back" style="display:none;" aria-label="Go back to previous step">← Back</button>
+      <button id="checkoutNextBtn" class="btn-next" aria-label="Continue to next step">Next Step →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand Column -->
+      <div>
+        <a href="#" class="brand-logo" style="margin-bottom:12px;" aria-label="Kartify">
+          <div class="logo-icon" aria-hidden="true">🛒</div>
+          <div>
+            <span class="brand-name">Kartify</span>
+            <span class="brand-tagline">Shop Everything</span>
+          </div>
+        </a>
+        <p class="footer-brand-desc">
+          Your one-stop premium marketplace for tech, fashion, home and more. Shop smarter with the best deals, lightning-fast delivery, and world-class support.
+        </p>
+        <div class="social-links" aria-label="Social media links">
+          <a href="#" class="social-link" aria-label="Instagram">📸</a>
+          <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+          <a href="#" class="social-link" aria-label="Facebook">📘</a>
+          <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+        </div>
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <span class="newsletter-label">✉️ Subscribe for exclusive deals</span>
+          <form id="newsletterForm" class="newsletter-form" onsubmit="return false;">
+            <input type="email" class="newsletter-input" placeholder="your@email.com" required aria-label="Email for newsletter" />
+            <button type="submit" class="newsletter-submit" aria-label="Subscribe">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="footer-col-title">Quick Links</h3>
+        <nav class="footer-links" aria-label="Quick links">
+          <a href="#" onclick="setCategory('all')">🏪 All Products</a>
+          <a href="#" onclick="setCategory('computing')">💻 Computing</a>
+          <a href="#" onclick="setCategory('mobiles')">📱 Smartphones</a>
+          <a href="#" onclick="setCategory('audio')">🎧 Audio</a>
+          <a href="#" onclick="setCategory('fashion')">👗 Fashion</a>
+          <a href="#" onclick="setCategory('home')">🏠 Home & Living</a>
+        </nav>
+      </div>
+
+      <!-- Customer Service -->
+      <div>
+        <h3 class="footer-col-title">Customer Service</h3>
+        <nav class="footer-links" aria-label="Customer service links">
+          <a href="#">📦 Track Your Order</a>
+          <a href="#">↩️ Returns & Refunds</a>
+          <a href="#">📋 FAQs</a>
+          <a href="#">💬 Live Chat</a>
+          <a href="#">📞 Call Us</a>
+          <a href="#">📧 Email Support</a>
+        </nav>
+      </div>
+
+      <!-- About -->
+      <div>
+        <h3 class="footer-col-title">Company</h3>
+        <nav class="footer-links" aria-label="Company links">
+          <a href="#">🏢 About Kartify</a>
+          <a href="#">💼 Careers</a>
+          <a href="#">📰 Press & Media</a>
+          <a href="#">🤝 Partner With Us</a>
+          <a href="#">🔒 Privacy Policy</a>
+          <a href="#">📄 Terms of Service</a>
+        </nav>
+      </div>
+
+    </div><!-- /footer-grid -->
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Kartify. Made with ❤️. All rights reserved.</p>
+      <div class="footer-payment-icons" aria-label="Accepted payment methods">
+        <span class="payment-icon" title="Visa" aria-label="Visa">💳</span>
+        <span class="payment-icon" title="PayPal" aria-label="PayPal">🅿️</span>
+        <span class="payment-icon" title="UPI" aria-label="UPI">📱</span>
+        <span class="payment-icon" title="Secure" aria-label="Secure">🔒</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- =============================================
+     MOBILE BOTTOM NAVIGATION
+     ============================================= -->
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <div class="bottom-nav-inner">
+    <button class="bottom-nav-btn active" data-action="home" onclick="setCategory('all'); this.closest('.mobile-bottom-nav').querySelectorAll('.bottom-nav-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');" aria-label="Home">
+      <span class="nav-icon" aria-hidden="true">🏠</span>
+      Home
+    </button>
+    <button class="bottom-nav-btn" data-action="filter" aria-label="Filters">
+      <span class="nav-icon" aria-hidden="true">🎛️</span>
+      Filter
+    </button>
+    <button class="bottom-nav-btn" data-action="cart" aria-label="Cart">
+      <span class="nav-icon" aria-hidden="true">🛒</span>
+      Cart
+      <span id="bottomCartCount" class="badge-count" style="display:none;">0</span>
+    </button>
+    <button class="bottom-nav-btn" data-action="wishlist" aria-label="Wishlist">
+      <span class="nav-icon" aria-hidden="true">❤️</span>
+      Wishlist
+    </button>
+  </div>
+</nav>
+
+<!-- =============================================
+     TOAST NOTIFICATIONS CONTAINER
+     ============================================= -->
+<div id="toastContainer" class="toast-container" aria-live="polite" aria-label="Notifications"></div>
+
+<!-- =============================================
+     SCRIPTS
+     ============================================= -->
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
