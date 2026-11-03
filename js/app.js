@@ -994,3 +994,33 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ============================================
+// SECRET ADMIN ACCESS — Ctrl + Shift + A
+// Also: click the store logo 5 times rapidly
+// ============================================
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+    e.preventDefault();
+    showToast('🛡️ Opening Admin Panel…', 'info');
+    setTimeout(() => window.open('admin.html', '_blank'), 800);
+  }
+});
+
+// Logo click 5× secret access
+let logoClickCount = 0;
+let logoClickTimer = null;
+document.addEventListener('DOMContentLoaded', () => {
+  const logo = document.querySelector('.logo, .site-logo, .brand-logo, header .logo-text, .nav-logo');
+  if (!logo) return;
+  logo.addEventListener('click', () => {
+    logoClickCount++;
+    clearTimeout(logoClickTimer);
+    logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 2000);
+    if (logoClickCount >= 5) {
+      logoClickCount = 0;
+      showToast('🛡️ Opening Admin Panel…', 'info');
+      setTimeout(() => window.open('admin.html', '_blank'), 800);
+    }
+  });
+});
